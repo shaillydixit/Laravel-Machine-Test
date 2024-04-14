@@ -18,12 +18,15 @@
                             </ol>
                         </nav>
                     </div>
+                    <div class="ms-auto">
+                            <div class="btn-group">
+                                <a href="{{route('companies.index')}}" class="btn btn-primary px-2">Back </a>
+                            </div>
+                        </div>
                 </div>
                 <div class="card">
                     <div class="card-body p-4">
                         <h5 class="mb-4">Update Company</h5>
-                        
-                        <!-- <form class="row g-3" name="edit_company_form" id="edit_company_form" class="edit_company_form"> -->
                         <form class="row g-3" 
                         action="{{ route('companies.update', $companyData->id) }}" method="POST"
                             enctype="multipart/form-data">
@@ -69,10 +72,10 @@
                                     src="{{ !empty($companyData) ? url('/storage/files/company/'.$companyData->logo) : url('assets/images/no_image.jpg') }}"
                                     alt="Company Logo" class="rounded-circle p-1 bg-primary" width="80">
                             </div>
-                            <div class="col-md-12 text-center">
+                            <div class="col-md-12 mt-5">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
-                                    <button type="submit" id="update_btn_company" class="btn btn-primary px-4">Update
-                                        Changes</button>
+                                <input type="submit" class="btn btn-rounded btn-primary mb-5"
+                                            value="Update Company">
                                 </div>
                             </div>
                         </form>

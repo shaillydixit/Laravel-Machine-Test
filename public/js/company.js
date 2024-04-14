@@ -43,12 +43,3 @@ $(document).ready(function () {
         .attr("placeholder", "Search");
     $(".dataTables_length select").addClass("form-control");
 });
-$(document).ready(function () {
-    $('#logo').change(function (e) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            $('#showImage').attr('src', e.target.result);
-        }
-        reader.readAsDataURL(e.target.files['0']);
-    });
-});

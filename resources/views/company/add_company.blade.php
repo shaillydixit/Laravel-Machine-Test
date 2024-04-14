@@ -18,6 +18,11 @@
                             </ol>
                         </nav>
                     </div>
+                    <div class="ms-auto">
+                            <div class="btn-group">
+                                <a href="{{route('companies.index')}}" class="btn btn-primary">Back </a>
+                            </div>
+                        </div>
                 </div>
                 <div class="card">
                     <div class="card-body p-4">
@@ -62,7 +67,7 @@
                                         class="rounded-circle p-1 bg-primary" width="80">
                                 </div>
 
-                                <div class="col-md-12 text-center">
+                                <div class="col-md-12 mt-5">
                                     <div class="d-md-flex d-grid align-items-center gap-3">
                                         <input type="submit" class="btn btn-rounded btn-primary mb-5"
                                             value="Add Company">
