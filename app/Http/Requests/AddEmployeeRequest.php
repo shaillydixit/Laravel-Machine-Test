@@ -26,7 +26,7 @@ class AddEmployeeRequest extends FormRequest
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'required',
+            'phone' => 'required|string|regex:/^\d{10,}$/',
         ];
     }
 }

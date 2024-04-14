@@ -21,5 +21,8 @@ class Company extends Model
 		return $companies;		
 	}
 
-    
+	public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
 }
