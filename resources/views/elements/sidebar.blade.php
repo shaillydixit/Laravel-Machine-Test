@@ -23,7 +23,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{route('employees.index')}}">
                 <div class="parent-icon"><i class='bx bx-user-check'></i>
                 </div>
                 <div class="menu-title">Employees</div>

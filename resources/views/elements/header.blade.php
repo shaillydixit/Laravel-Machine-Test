@@ -1,7 +1,10 @@
 <header>
     <div class="topbar d-flex align-items-center">
         <nav class="navbar navbar-expand gap-3">
-            <div class="mobile-toggle-menu"><i class='bx bx-menu'></i>
+            <div class="mobile-toggle-menu">
+            <a type="button" class="btn btn-success" href="{{route('dashboard')}}">Dashboard</a>
+            <a type="button" class="btn btn-success" href="{{route('companies.index')}}">Company</a>
+            <a type="button" class="btn btn-success" href="{{route('employees.index')}}">Employee</a>
             </div>
             <div class="top-menu ms-auto">
             </div>

@@ -14,7 +14,11 @@
                                 <div class="d-flex align-items-center">
                                     <div>
                                         <h6 class="mb-0 text-secondary">Total Employees</h6>
-                                        <h4 class="my-1 text-success">34</h4>
+
+                                        @php
+                                        $count = App\Models\Employee::where('status', '1')->count();
+                                        @endphp
+                                        <h4 class="my-1 text-success">{{$count}}</h4>
                                     </div>
                                     <div
                                         class="widgets-icons-2 rounded-circle bg-gradient-ohhappiness text-white ms-auto">
@@ -30,7 +34,10 @@
                                 <div class="d-flex align-items-center">
                                     <div>
                                         <h6 class="mb-0 text-secondary">Total Companies</h6>
-                                        <h4 class="my-1 text-warning">8</h4>
+                                        @php
+                                        $count = App\Models\Company::where('status', '1')->count();
+                                        @endphp
+                                        <h4 class="my-1 text-warning">{{$count}}</h4>
                                     </div>
                                     <div class="widgets-icons-2 rounded-circle bg-gradient-orange text-white ms-auto"><i
                                             class='bx bxs-buildings'></i>

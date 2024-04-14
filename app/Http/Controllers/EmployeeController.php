@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AddCompanyRequest;
-use App\Http\Requests\UpdateCompanyRequest;
+use App\Http\Requests\AddEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\Models\Company;
 use App\Models\Employee;
 use App\Models\Pagging;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
-class CompanyController extends Controller
+
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('company.index');
+        return view('employee.index');
     }
 
     /**
@@ -24,61 +24,60 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        return view('company.add_company');
+        $companies = Company::orderBy('name','ASC')->get();
+        return view('employee.add_employee', compact('companies'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(AddCompanyRequest $request)
+    public function store(AddEmployeeRequest $request)
     {
         $data = array(
-            'name'       => $request->name,
+            'company_id' => $request->company_id,
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
             'email'      => $request->email,
-            'website'    => $request->website,
+            'phone'      => $request->phone,
             'status'     => '1',
             'created_at' => now(),
             'updated_at' => now(),
         );
         
-        $companyId = $request->id;
-        $check_company = Company::check_company($data, $companyId);
+        $employeeId = $request->id;
+        $check_employee = Employee::check_employee($data, $employeeId);
         
-        if (!empty($check_company)) {
+        if (!empty($check_employee)) {
             $notification = array(
-                'message' => 'Company Already Exist',
+                'message' => 'Employee Already Exist',
                 'alert-type' => 'info'
             );
     
             return redirect()->back()->with($notification);
         } else {
-            if ($request->hasFile('logo')) {
-                $filename = 'logo_' . time() . '.' . $request->logo->extension();
-                $request->logo->storeAs('files/company', $filename, 'public');
-                $data['logo'] = $filename;
-            }
-        
-            Company::create($data);
+            Employee::create($data);
             $notification = array(
-                'message' => 'Company Inserted Successfully',
+                'message' => 'Employee Inserted Successfully',
                 'alert-type' => 'success'
             );
     
             return redirect()->back()->with($notification);
+        }
     }
-    }
- 
+
     /**
      * Display the specified resource.
      */
     public function show(Request $request)
     {
         {
-            $aColumns = array('company.id', 'company.name','company.email','company.website','company.logo','company.status', 'company.created_at');
-            $isWhere = array("company.status != '2'");
-            $table = "companies as company";
-            $isJOIN = array();
-            $hOrder = "company.id desc";
+            $aColumns = array('employee.id', 'employee.company_id','company.name as company_name','employee.first_name','employee.last_name','employee.email','employee.phone','employee.status', 'employee.created_at');
+            $isWhere = array("employee.status != '2'");
+            $table = "employees as employee";
+            $isJOIN = array(
+                'inner join companies as company on company.id = employee.company_id',
+            );
+            $hOrder = "employee.id desc";
             $sqlReturn = Pagging::get_datatables($aColumns, $table, $hOrder, $isJOIN, $isWhere, $request);
             $appData = array();
             $no = $request->iDisplayStart + 1;
@@ -86,14 +85,14 @@ class CompanyController extends Controller
                
                 $row_data = array();
                 $row_data[] = $no;
-                $row_data[] =(!empty($row->logo)) ? '<img src="' . URL::to('/') . '/storage/files/company' . '/' . $row->logo . '" width="50" height="50" class="img-thumbnail rounded-circle">' : '';
-                $row_data[] = $row->name;
+                $row_data[] = $row->company_name;
+                $row_data[] = $row->first_name . ' ' . $row->last_name;
                 $row_data[] = $row->email;
-                $row_data[] = $row->website;
-                $row_data[] = '<a class="btn btn-primary btn-sm px-2" href="' . url('companies/'. $row->id.'/edit') . '" >
+                $row_data[] = $row->phone;
+                $row_data[] = '<a class="btn btn-primary btn-sm px-2" href="' . url('employees/'. $row->id.'/edit') . '" >
                         Edit
                     </a> 
-                    <form action="' . route('companies.destroy', $row->id) . '" method="POST" style="display: inline;">
+                    <form action="' . route('employees.destroy', $row->id) . '" method="POST" style="display: inline;">
                     ' . csrf_field() . '
                     ' . method_field('DELETE') . '
                     <button type="submit" class="btn btn-danger px-2 btn-sm">Delete</button>
@@ -114,45 +113,44 @@ class CompanyController extends Controller
         }
     }
 
+
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
-        $companyData = Company::where('id', $id)->first();
-        return view('company.edit_company',compact('companyData'));
+        $companies = Company::orderBy('name','ASC')->get();
+        $employeeData = Employee::with('Company')->where('id', $id)->first();
+        return view('employee.edit_employee',compact('employeeData','companies'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCompanyRequest $request, string $id)
+    public function update(UpdateEmployeeRequest $request, string $id)
     {
         $data = array(
-			'name'	 	 => $request->name,
-			'email'	     => $request->email,
-            'website'	 => $request->website,
+            'company_id' => $request->company_id,
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'email'      => $request->email,
+            'phone'      => $request->phone,
             'status'     => '1',
             'updated_at' => now(),
-		);
+        );
       
-		$check_company	= Company::check_company($data, $id);
-        if (!empty($check_company)) {
+        $check_employee = Employee::check_employee($data, $id);
+        if (!empty($check_employee)) {
             $notification = array(
-                'message' => 'Company Already Exist',
+                'message' => 'Employee Already Exist',
                 'alert-type' => 'info'
             );
     
             return redirect()->back()->with($notification);
-		} elseif(!empty($id)){
-            if ($request->hasFile('logo')) {
-                $filename = 'logo_' . time() . '.' . $request->logo->extension();
-                $request->logo->storeAs('files/company', $filename, 'public');
-                $data['logo'] = $filename;
-            }
-            $update =   Company::where('id', $id)->update($data);
+        } elseif(!empty($id)){
+              Employee::where('id', $id)->update($data);
             $notification = array(
-                'message' => 'Company Updated Successfully',
+                'message' => 'Employee Updated Successfully',
                 'alert-type' => 'success'
             );
     
@@ -165,22 +163,20 @@ class CompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = [
+        $data = array(
             "status" => '2'
-        ];
-        $deleted = Company::where('id', $id)->update($data);
-
+        );
+    
+        $deleted = Employee::where('id', $id)->update($data);
+    
         if ($deleted) {
-            Employee::where('company_id', $id)->update(['status' => '2']);
-
-            $notification = [
-                'message' => 'Company Deleted Successfully',
+            $notification = array(
+                'message' => 'Employee Deleted Successfully',
                 'alert-type' => 'success'
-            ];
-
+            );
+    
             return redirect()->back()->with($notification);
         }
-
+        
     }
-
 }

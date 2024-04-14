@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/',[AdminController::class, 'AdminLogin'])->name('admin.login');
@@ -18,6 +19,17 @@ Route::get('/companies/show', [CompanyController::class, 'show'])->name('compani
 Route::get('/companies/{company}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
 Route::put('/companies/{company}', [CompanyController::class, 'update'])->name('companies.update');
 Route::delete('/companies/{company}', [CompanyController::class, 'destroy'])->name('companies.destroy');
+
+
+// Route::resource('employees', EmployeeController::class);
+
+Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
+Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+Route::get('/employees/show', [EmployeeController::class, 'show'])->name('employees.show');
+Route::get('/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('employees.edit');
+Route::put('/employees/{employee}', [EmployeeController::class, 'update'])->name('employees.update');
+Route::delete('/employees/{employee}', [EmployeeController::class, 'destroy'])->name('employees.destroy');
 
 });
 require __DIR__.'/auth.php';
