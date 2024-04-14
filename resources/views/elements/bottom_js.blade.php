@@ -13,15 +13,13 @@
 <script src="{{asset('assets/plugins/chartjs/js/chart.js')}}"></script>
 <script src="{{asset('assets/js/index.js')}}"></script>
 <script src="{{asset('assets/js/app.js')}}"></script>
-<script type="text/javascript" src="{{asset('assets/js/toastr.js')}}"></script>
-<script type="text/javascript" src="{{asset('assets/js/toastr.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('assets/js/sweetalert2.all.min.js')}}"></script>
 <script src="{{asset('assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js')}}"></script>
 <script src="{{asset('assets/js/app.js')}}"></script>
-<script>
-    new PerfectScrollbar(".app-container")
-</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script>
     $(document).ready(function () {
         $('#example').DataTable();

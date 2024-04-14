@@ -16,17 +16,17 @@
             </a>
         </li>
         <li>
+            <a href="{{route('companies.index')}}">
+                <div class="parent-icon"><i class='bx bx-buildings'></i>
+                </div>
+                <div class="menu-title">Companies</div>
+            </a>
+        </li>
+        <li>
             <a href="#">
                 <div class="parent-icon"><i class='bx bx-user-check'></i>
                 </div>
                 <div class="menu-title">Employees</div>
-            </a>
-        </li>
-        <li>
-            <a href="">
-                <div class="parent-icon"><i class='bx bx-buildings'></i>
-                </div>
-                <div class="menu-title">Companies</div>
             </a>
         </li>
     </ul>

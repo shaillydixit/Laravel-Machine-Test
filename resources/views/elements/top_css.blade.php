@@ -17,9 +17,9 @@
 	<link rel="stylesheet" href="{{asset('assets/css/dark-theme.css')}}"/>
 	<link rel="stylesheet" href="{{asset('assets/css/semi-dark.css')}}"/>
 	<link rel="stylesheet" href="{{asset('assets/css/header-colors.css')}}"/>
-	<link rel="stylesheet" type="text/css" href="{{asset('assets/css/toastr.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/toastr.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('assets/css/sweetalert2.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+
 	<title>Laravel Machine Test</title>
 </head>
 
